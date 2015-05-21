@@ -1,0 +1,29 @@
+{
+  "name": "lti/xml-sitemap",
+  "type": "library",
+  "description": "XML Sitemap generator",
+  "keywords": [
+    "XML",
+    "sitemap",
+    "linguistic team international"
+  ],
+  "homepage": "http://dev.linguisticteam.org",
+  "authors": [
+    {
+      "name": "Bruno De Carvalho",
+      "email": "decarvalho.bruno@free.fr",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.3"
+  },
+  "support": {
+    "email": "admin@linguisticteam.org"
+  },
+  "autoload": {
+    "psr-4": {
+      "Lti\\Sitemap\\": "src/"
+    }
+  }
+}
