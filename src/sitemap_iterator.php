@@ -33,11 +33,6 @@ abstract class SiteMapIterator extends XMLSitemap implements \Iterator
         $this->key = 0;
     }
 
-    public function add( XMLSitemap $sitemap )
-    {
-        $this->nodes[] = $sitemap;
-    }
-
     public function output()
     {
         /**

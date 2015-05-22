@@ -61,9 +61,9 @@ abstract class XMLSitemap
         $this->mainNode->appendChild( $object->getNode() );
     }
 
-    protected function addStylesheet( $url )
+    public function addStylesheet( $url )
     {
-        $this->XML->createProcessingInstruction( 'xml-stylesheet', sprintf( 'type="text/xsl" href="%s"', $url ) );
+        $this->XML->appendChild($this->XML->createProcessingInstruction( 'xml-stylesheet', sprintf( 'type="text/xsl" href="%s"', $url ) ));
     }
 
     public function output()
