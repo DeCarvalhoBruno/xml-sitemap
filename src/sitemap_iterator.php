@@ -87,6 +87,7 @@ class SiteMapUrlSet extends SiteMapIterator
     {
         $key           = $this->key();
         $this->nodes[] = $sitemap;
+        $this->next();
 
         return $key;
     }
