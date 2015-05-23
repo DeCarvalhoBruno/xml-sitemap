@@ -24,10 +24,11 @@ abstract class XMLSitemap
         $this->XML = $this->getXML();
     }
 
-    public function getXML( $version = '1.0', $encoding = 'UTF-8' )
+    public function getXML( $version = '1.0', $encoding = 'UTF-8', $willFormatOutput = true )
     {
         if (is_null( self::$instance )) {
-            self::$instance = new \DOMDocument( $version, $encoding );
+            self::$instance               = new \DOMDocument( $version, $encoding );
+            self::$instance->formatOutput = $willFormatOutput;
         }
 
         return self::$instance;
@@ -63,7 +64,8 @@ abstract class XMLSitemap
 
     public function addStylesheet( $url )
     {
-        $this->XML->appendChild($this->XML->createProcessingInstruction( 'xml-stylesheet', sprintf( 'type="text/xsl" href="%s"', $url ) ));
+        $this->XML->appendChild( $this->XML->createProcessingInstruction( 'xml-stylesheet',
+            sprintf( 'type="text/xsl" href="%s"', $url ) ) );
     }
 
     public function output()
@@ -96,11 +98,13 @@ abstract class XMLSitemap
         }
     }
 
-    protected function hasChild($childName){
-        $children = $this->mainNode->getElementsByTagName($childName);
-        if($children->length>0){
+    protected function hasChild( $childName )
+    {
+        $children = $this->mainNode->getElementsByTagName( $childName );
+        if ($children->length > 0) {
             return true;
         }
+
         return false;
     }
 
@@ -111,9 +115,10 @@ abstract class XMLSitemap
      * @param null $value
      * @param bool $escape
      */
-    protected function addOrReplaceChild($attribute, $value = null, $escape = false){
-        if($this->hasChild($attribute)===false){
-            $this->addChild($attribute,$value,$escape);
+    protected function addOrReplaceChild( $attribute, $value = null, $escape = false )
+    {
+        if ($this->hasChild( $attribute ) === false) {
+            $this->addChild( $attribute, $value, $escape );
         }
     }
 
@@ -130,7 +135,7 @@ class Sitemap extends XMLSitemap
 
         $this->location         = $location;
         $this->lastModification = $lastModification;
-        $this->mainNode       = $this->XML->createElement( 'sitemap' );
+        $this->mainNode         = $this->XML->createElement( 'sitemap' );
         $this->addChild( 'loc', $this->location, true );
         $this->addChild( 'lastmod', $this->lastModification );
     }

@@ -33,6 +33,15 @@ abstract class SiteMapIterator extends XMLSitemap implements \Iterator
         $this->key = 0;
     }
 
+    public function get( $key )
+    {
+        if (isset( $this->nodes[$key] )) {
+            return $this->nodes[$key];
+        }
+
+        return null;
+    }
+
     public function output()
     {
         /**
@@ -52,9 +61,9 @@ abstract class SiteMapIterator extends XMLSitemap implements \Iterator
 class SiteMapIndex extends SiteMapIterator
 {
 
-    public function __construct( $version = '1.0', $encoding = 'UTF-8' )
+    public function __construct( $version = '1.0', $encoding = 'UTF-8', $willFormatOutput = true )
     {
-        XMLSitemap::__construct( $version, $encoding );
+        XMLSitemap::__construct( $version, $encoding, $willFormatOutput );
         $this->mainNode = $this->XML->createElementNS( 'http://www.sitemaps.org/schemas/sitemap/0.9', 'sitemapindex' );
     }
 
@@ -67,21 +76,30 @@ class SiteMapIndex extends SiteMapIterator
 class SiteMapUrlSet extends SiteMapIterator
 {
 
-    public function __construct( $version = '1.0', $encoding = 'UTF-8' )
+    public function __construct( $version = '1.0', $encoding = 'UTF-8', $willFormatOutput = true )
     {
-        XMLSitemap::__construct( $version, $encoding );
+        XMLSitemap::__construct( $version, $encoding, $willFormatOutput );
         $this->mainNode = $this->XML->createElementNS( 'http://www.sitemaps.org/schemas/sitemap/0.9', 'urlset' );
     }
 
 
     public function add( SiteMapUrl $sitemap )
     {
+        $key           = $this->key();
         $this->nodes[] = $sitemap;
+
+        return $key;
     }
 
-    public function addImage( $location, $caption = '', $geolocation = '', $title = '', $license = '' )
+    public function addImage( $key, $location, $caption = '', $geolocation = '', $title = '', $license = '' )
     {
-        $this->current()->addImage( new SitemapImage( $location, $caption, $geolocation, $title, $license ) );
-        $this->hasImages = true;
+        /**
+         * @var \Lti\Sitemap\SitemapUrl $node
+         */
+        $node = $this->get( $key );
+        if ( ! is_null( $node )) {
+            $node->addImage( new SitemapImage( $location, $caption, $geolocation, $title, $license ) );
+            $this->hasImages = true;
+        }
     }
 }
