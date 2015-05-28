@@ -170,6 +170,11 @@ class SitemapUrl extends XMLSitemap
         $this->addChildNode( $image );
     }
 
+    public function addNews( SitemapNews $news )
+    {
+        $this->addChildNode( $news );
+    }
+
     /**
      * @return mixed
      */

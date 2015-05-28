@@ -103,4 +103,29 @@ class SiteMapUrlSet extends SiteMapIterator
             $this->hasImages = true;
         }
     }
+
+    public function addImageNode( $key, SitemapImage $image )
+    {
+        /**
+         * @var \Lti\Sitemap\SitemapUrl $node
+         */
+        $node = $this->get( $key );
+        if ( ! is_null( $node )) {
+            $node->addImage( $image );
+            $this->hasImages = true;
+        }
+    }
+
+    public function addNewsNode( $key, SitemapNews $news )
+    {
+        /**
+         * @var \Lti\Sitemap\SitemapUrl $node
+         */
+        $node = $this->get( $key );
+        if ( ! is_null( $node )) {
+            $news->build();
+            $node->addNews( $news );
+            $this->hasImages = true;
+        }
+    }
 }
