@@ -125,7 +125,7 @@ class SiteMapUrlSet extends SiteMapIterator
         if ( ! is_null( $node )) {
             $news->build();
             $node->addNews( $news );
-            $this->hasImages = true;
+            $this->hasNews = true;
         }
     }
 }

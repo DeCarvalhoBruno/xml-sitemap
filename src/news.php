@@ -95,7 +95,7 @@ class SitemapNews extends XMLSitemap
         $child->appendChild( new \DOMCdataSection( $name ) );
         $node->appendChild( $child );
         $child = $this->XML->createElement( 'news:language', $language );
-        $child->appendChild( $child );
+        $node->appendChild( $child );
         $this->mainNode->appendChild( $node );
     }
 
@@ -140,7 +140,7 @@ class SitemapNews extends XMLSitemap
         );
         foreach ($values as $value => $isEscaped) {
             if ( ! is_null( $this->{$value} )) {
-                $this->addChild( sprintf( 'news:%s', $this->{$value} ), $isEscaped );
+                $this->addChild( sprintf( 'news:%s', $value ), $this->{$value}, $isEscaped );
             }
         }
     }
