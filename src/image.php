@@ -1,5 +1,9 @@
 <?php namespace Lti\Sitemap;
 
+/**
+ * Class SitemapImage
+ * @package Lti\Sitemap
+ */
 class SitemapImage extends XMLSitemap
 {
     private $location;
@@ -8,6 +12,13 @@ class SitemapImage extends XMLSitemap
     private $title;
     private $license;
 
+    /**
+     * @param string $location
+     * @param string $caption
+     * @param string $geolocation
+     * @param string $title
+     * @param string $license
+     */
     public function __construct( $location, $caption = '', $geolocation = '', $title = '', $license = '' )
     {
         parent::__construct();

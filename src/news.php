@@ -1,5 +1,9 @@
 <?php namespace Lti\Sitemap;
 
+/**
+ * Class SitemapNews
+ * @package Lti\Sitemap
+ */
 class SitemapNews extends XMLSitemap
 {
     /**
@@ -82,6 +86,10 @@ class SitemapNews extends XMLSitemap
      */
     private $stock_tickers;
 
+    /**
+     * @param string $name
+     * @param string $language
+     */
     public function __construct( $name, $language )
     {
         parent::__construct();
@@ -99,36 +107,57 @@ class SitemapNews extends XMLSitemap
         $this->mainNode->appendChild( $node );
     }
 
+    /**
+     * @param string $value
+     */
     public function set_access( $value )
     {
         $this->access = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function set_genres( $value )
     {
         $this->genres = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function set_publication_date( $value )
     {
         $this->publication_date = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function set_title( $value )
     {
         $this->title = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function set_keywords( $value )
     {
         $this->keywords = $value;
     }
 
+    /**
+     * @param string $value
+     */
     public function set_stock_tickers( $value )
     {
         $this->stock_tickers = $value;
     }
 
+    /**
+     * Adds all the nodes in our news sitemap, with some values being escaped.
+     */
     public function build()
     {
         $values = array( 'access'           => false,

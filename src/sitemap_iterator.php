@@ -1,5 +1,9 @@
 <?php namespace Lti\Sitemap;
 
+/**
+ * Class SiteMapIterator
+ * @package Lti\Sitemap
+ */
 abstract class SiteMapIterator extends XMLSitemap implements \Iterator
 {
     protected $key = 0;
@@ -57,7 +61,12 @@ abstract class SiteMapIterator extends XMLSitemap implements \Iterator
     }
 }
 
-
+/**
+ * Class SiteMapIndex
+ * @package Lti\Sitemap
+ *
+ * Creates an index sitemap, i.e. a sitemap with links to other sitemaps
+ */
 class SiteMapIndex extends SiteMapIterator
 {
 
@@ -73,16 +82,30 @@ class SiteMapIndex extends SiteMapIterator
     }
 }
 
+/**
+ * Class SiteMapUrlSet
+ * @package Lti\Sitemap
+ *
+ * Creates a regular sitemap i.e. a sitemap with site URLs
+ */
 class SiteMapUrlSet extends SiteMapIterator
 {
-
+    /**
+     * @param string $version
+     * @param string $encoding
+     * @param bool $willFormatOutput
+     */
     public function __construct( $version = '1.0', $encoding = 'UTF-8', $willFormatOutput = true )
     {
         XMLSitemap::__construct( $version, $encoding, $willFormatOutput );
         $this->mainNode = $this->XML->createElementNS( 'http://www.sitemaps.org/schemas/sitemap/0.9', 'urlset' );
     }
 
-
+    /**
+     * @param SiteMapUrl $sitemap
+     *
+     * @return int
+     */
     public function add( SiteMapUrl $sitemap )
     {
         $key           = $this->key();
@@ -92,6 +115,16 @@ class SiteMapUrlSet extends SiteMapIterator
         return $key;
     }
 
+    /**
+     * Adding an image at a specific index in our array of SitemapUrls
+     *
+     * @param int $key
+     * @param $location
+     * @param string $caption
+     * @param string $geolocation
+     * @param string $title
+     * @param string $license
+     */
     public function addImage( $key, $location, $caption = '', $geolocation = '', $title = '', $license = '' )
     {
         /**
